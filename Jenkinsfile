@@ -17,9 +17,10 @@ pipeline {
         
         stage('Run Tests') {
             steps {
+                // Запускаємо тести в тому ж контейнері, який ми щойно зібрали
                 sh '''
-                docker run --rm -v ${WORKSPACE}:/app -w /app python:3.9-slim pip install pytest requests
-                docker run --rm -v ${WORKSPACE}:/app -w /app python:3.9-slim python -m pytest test_app.py -v
+                docker run --rm python-app:latest pip install pytest requests
+                docker run --rm python-app:latest pytest test_app.py -v
                 '''
             }
         }
