@@ -18,8 +18,8 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                docker run --rm -v "$(pwd):/app" -w /app python-app:latest pip install pytest requests
-                docker run --rm -v "$(pwd):/app" -w /app python-app:latest python -m pytest test_app.py -v
+                docker run --rm -v ${WORKSPACE}:/app -w /app python:3.9-slim pip install pytest requests
+                docker run --rm -v ${WORKSPACE}:/app -w /app python:3.9-slim python -m pytest test_app.py -v
                 '''
             }
         }
